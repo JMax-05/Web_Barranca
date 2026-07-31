@@ -172,6 +172,44 @@
     @media (max-width: 900px) { .team-grid { grid-template-columns: repeat(3, 1fr); } }
     @media (max-width: 560px) { .team-grid { grid-template-columns: repeat(2, 1fr); } }
 
+    /* ── DOCENTE RESPONSABLE RSU ── */
+    .rsu-hidden { display: none !important; }
+    .advisor-wrap { display: flex; justify-content: center; margin-top: 48px; }
+    .advisor-card {
+      text-align: center;
+      background: var(--card-bg);
+      border-radius: var(--r-md);
+      padding: 32px 44px;
+      border: 1px solid rgba(232,168,32,.35);
+      box-shadow: 0 0 0 1px rgba(232,168,32,.08), 0 24px 48px rgba(0,0,0,.35);
+      max-width: 440px;
+    }
+    .advisor-card__avatar {
+      width: 96px; height: 96px;
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--gold-lt), var(--gold));
+      color: #1a1206;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 700;
+      border: 3px solid var(--gold);
+      box-shadow: 0 0 0 4px rgba(232,168,32,.18);
+    }
+    .advisor-card__badge {
+      font-size: .7rem; text-transform: uppercase; letter-spacing: .12em;
+      color: var(--gold); margin-bottom: 8px; font-weight: 600;
+    }
+    .advisor-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; line-height: 1.2; margin-bottom: 4px; }
+    .advisor-card p { font-size: .85rem; color: var(--muted); }
+    .team-subtag {
+      text-align: center;
+      font-size: .75rem; text-transform: uppercase; letter-spacing: .12em;
+      color: var(--muted); margin-top: 40px; margin-bottom: 4px;
+    }
+    .footer__rsu-contact { margin-top: 14px; font-size: .85rem; color: rgba(255,255,255,.6); }
+    .footer__rsu-contact strong { color: var(--gold); font-weight: 600; }
+
     /* ── ABOUT ── */
     .about { padding: 80px 0; background: var(--dark-s); }
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
@@ -364,6 +402,18 @@
       <div class="section-tag">Grupo de trabajo</div>
       <h2 class="section-title">Nuestro Equipo</h2>
       <p class="section-sub">Estudiantes que presentan la identidad cultural y turística de la Provincia de Barranca.</p>
+
+      <div class="advisor-wrap rsu-reveal rsu-hidden">
+        <div class="advisor-card">
+          <div class="advisor-card__avatar">LB</div>
+          <div class="advisor-card__badge">Responsable del Proyecto de RSU</div>
+          <h3>Ing. Lilian Magnolia Benique Ruelas</h3>
+          <p>Docente asesora del proyecto</p>
+        </div>
+      </div>
+
+      <div class="team-subtag rsu-reveal rsu-hidden">Estudiantes colaboradores</div>
+
       <div class="team-grid">
 
         <div class="team-card">
@@ -422,6 +472,7 @@
         <div>
           <div class="footer__logo">Provincia de Barranca</div>
           <p class="footer__desc">Cinco distritos, una sola identidad costera y andina del norte de Lima, Perú.</p>
+          <p class="footer__rsu-contact rsu-reveal rsu-hidden">Contacto con la responsable del proyecto de RSU, <strong>Ing. Lilian Magnolia Benique Ruelas</strong>: <strong>+51 935 963 308</strong></p>
         </div>
         <div>
           <h4>Distritos</h4>
@@ -458,6 +509,28 @@
     window.addEventListener('scroll', () => {
       header.classList.toggle('scrolled', window.scrollY > 50);
     });
+  </script>
+
+  <script>
+    (function () {
+      const RSU_WINDOWS = [
+        { start: '2026-07-30T21:09:00-05:00', end: '2026-07-30T22:00:00-05:00' },
+        { start: '2026-08-03T08:00:00-05:00', end: '2026-08-04T00:00:00-05:00' }
+      ].map(w => ({ start: new Date(w.start).getTime(), end: new Date(w.end).getTime() }));
+
+      function inRSUWindow() {
+        const now = Date.now();
+        return RSU_WINDOWS.some(w => now >= w.start && now < w.end);
+      }
+
+      function updateRSU() {
+        const show = inRSUWindow();
+        document.querySelectorAll('.rsu-reveal').forEach(el => el.classList.toggle('rsu-hidden', !show));
+      }
+
+      updateRSU();
+      setInterval(updateRSU, 15000);
+    })();
   </script>
 </body>
 </html>
