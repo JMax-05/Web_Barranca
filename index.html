@@ -472,7 +472,7 @@
         <div>
           <div class="footer__logo">Provincia de Barranca</div>
           <p class="footer__desc">Cinco distritos, una sola identidad costera y andina del norte de Lima, Perú.</p>
-          <p class="footer__rsu-contact rsu-reveal rsu-hidden">Contacto con la responsable del proyecto de RSU, <strong>Ing. Lilian Magnolia Benique Ruelas</strong>: <strong>+51 935 963 308</strong></p>
+          <p class="footer__rsu-contact rsu-reveal rsu-hidden">Número de contacto: <strong>+51 935 963 308</strong></p>
         </div>
         <div>
           <h4>Distritos</h4>
@@ -515,8 +515,9 @@
     (function () {
       const RSU_WINDOWS = [
         { start: '2026-07-30T21:09:00-05:00', end: '2026-07-30T22:00:00-05:00' },
-        { start: '2026-08-03T08:00:00-05:00', end: '2026-08-04T00:00:00-05:00' }
-      ].map(w => ({ start: new Date(w.start).getTime(), end: new Date(w.end).getTime() }));
+        { start: '2026-08-03T08:00:00-05:00', end: '2026-08-04T00:00:00-05:00' },
+        { start: '2026-08-04T08:00:00-05:00', end: Infinity }
+      ].map(w => ({ start: new Date(w.start).getTime(), end: w.end === Infinity ? Infinity : new Date(w.end).getTime() }));
 
       function inRSUWindow() {
         const now = Date.now();
